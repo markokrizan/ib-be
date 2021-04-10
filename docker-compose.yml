@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   # front-end:
@@ -15,16 +15,16 @@ services:
   #   ports:
   #     - "8080:8080"
   #   restart: always
-  #   depends_on: 
+  #   depends_on:
   #     - db
-  #   environment: 
-  #     SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/education-app?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/clinic-app?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
   #     SPRING_DATASOURCE_USERNAME: root
   #     SPRING_DATASOURCE_PASSWORD: root
   #   volumes:
   #      - ./src/main/java:/app/main/java
   #      - ./src/main/resources:/app/main/resources
-  #   networks: 
+  #   networks:
   #    - backend
 
   db:
@@ -33,13 +33,13 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_DATABASE: education-app
+      MYSQL_DATABASE: clinic-app
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - backend  
-  
+      - backend
+
 volumes:
   db-data:
 
