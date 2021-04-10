@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,12 +20,14 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @NaturalId
     @Column(length = 60)
-    private RoleName name;
+    private String name;
 
-    public Role(RoleName name) {
+    @ManyToMany
+    @JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+    private Collection<Privilege> privileges;
+
+    public Role(String name) {
         this.name = name;
     }
 }

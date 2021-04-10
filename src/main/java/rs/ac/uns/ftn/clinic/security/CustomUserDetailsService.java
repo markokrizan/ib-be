@@ -3,13 +3,13 @@ package rs.ac.uns.ftn.clinic.security;
 import rs.ac.uns.ftn.clinic.exception.ResourceNotFoundException;
 import rs.ac.uns.ftn.clinic.model.User;
 import rs.ac.uns.ftn.clinic.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -19,22 +19,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username : " + username)
-        );
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username : " + username));
 
         return UserPrincipal.create(user);
     }
 
     @Transactional
     public UserDetails loadUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-            () -> new ResourceNotFoundException("User", "id", id)
-        );
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         return UserPrincipal.create(user);
     }
