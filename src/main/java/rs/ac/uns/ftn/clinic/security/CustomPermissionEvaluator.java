@@ -8,6 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @see https://www.baeldung.com/spring-security-create-new-custom-security-expression
+ * 
+ *      Examples of usage within controlles:
+ * 
+ *      @PreAuthorize("hasAuthority('PRIVILEGE_NAME')") - Only evaluate
+ *      privilege name
+ * 
+ * 
  */
 public class CustomPermissionEvaluator implements PermissionEvaluator {
     @Override
