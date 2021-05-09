@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.clinic.config;
 
+import rs.ac.uns.ftn.clinic.security.CustomAuthenticationManager;
 import rs.ac.uns.ftn.clinic.security.CustomUserDetailsService;
 import rs.ac.uns.ftn.clinic.security.JwtAuthenticationEntryPoint;
 import rs.ac.uns.ftn.clinic.security.JwtAuthenticationFilter;
@@ -41,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        return new CustomAuthenticationManager();
     }
 
     @Bean

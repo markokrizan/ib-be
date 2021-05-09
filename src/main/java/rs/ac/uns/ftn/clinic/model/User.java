@@ -41,6 +41,8 @@ public class User extends BaseModel {
     @JoinColumn(name = "clinic_id", nullable = true)
     private Clinic clinic;
 
+    private Boolean isVerified = false;
+
     public User(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
