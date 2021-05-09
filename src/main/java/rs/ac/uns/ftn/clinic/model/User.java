@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.clinic.model;
 
-import rs.ac.uns.ftn.clinic.model.audit.DateAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -18,13 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User extends DateAudit {
-    private static final long serialVersionUID = -6749704080929018581L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class User extends BaseModel {
     @NotBlank
     @Size(max = 40)
     private String firstName;
