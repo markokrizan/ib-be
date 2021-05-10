@@ -14,6 +14,9 @@ import org.springframework.security.core.GrantedAuthority;
  *      @PreAuthorize("hasAuthority('PRIVILEGE_NAME')") - Only evaluate
  *      privilege name
  * 
+ *      @PostAuthorize("hasPermission(returnObject, 'read')") - User has to have
+ *      a permission in format:
+ *      whateverTheMethodReturns.getClass().getSimpleName().toUpperCase()_READ
  * 
  */
 public class CustomPermissionEvaluator implements PermissionEvaluator {
