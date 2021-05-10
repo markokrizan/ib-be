@@ -77,4 +77,8 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }
