@@ -10,5 +10,8 @@ ALTER TABLE roles_privileges ADD PRIMARY KEY (`role_id`, `privilege_id`);
 
 INSERT IGNORE INTO privileges(name) VALUES('ALL_USER_READ_PRIVILEGE');
 INSERT IGNORE INTO privileges(name) VALUES('UPDATE_USER');
+INSERT IGNORE INTO privileges(name) VALUES('READ_ALL_APPOINTMENTS')
+
 INSERT IGNORE INTO roles_privileges(role_id, privilege_id) VALUES (1, 1);
 INSERT IGNORE INTO roles_privileges(role_id, privilege_id) VALUES (1, 2);
+INSERT IGNORE INTO roles_privileges(role_id, privilege_id) VALUES (1, 3);
