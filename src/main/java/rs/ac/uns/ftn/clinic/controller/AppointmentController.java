@@ -29,13 +29,13 @@ public class AppointmentController {
         return appointmentService.getAll(pageable);
     }
 
-    // TODO: Security
+    @PreAuthorize("hasRole('ADMIN') || hasPermission(#appoinmentId, 'Appointment', 'read')")
     @GetMapping("/appoinments/{appoinmentId}")
     public Appointment getOne(@PathVariable("appoinmentId") Long appoinmentId) {
         return appointmentService.getOne(appoinmentId);
     }
 
-    // TODO: Security
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/appoinments")
     public Appointment save(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         Appointment appointment = modelMapper.map(appointmentRequest, Appointment.class);
@@ -43,7 +43,6 @@ public class AppointmentController {
         return appointmentService.save(appointment);
     }
 
-    // TODO: Security
     @DeleteMapping("/appoinments/{appoinmentId}")
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("appoinmentId") Long appoinmentId) {

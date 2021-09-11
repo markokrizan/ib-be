@@ -73,6 +73,10 @@ public class UserPrincipal implements UserDetails {
         return authorities;
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
     @Override
     public String getUsername() {
         return username;
