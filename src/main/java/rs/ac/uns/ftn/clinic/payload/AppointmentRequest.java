@@ -1,9 +1,11 @@
 package rs.ac.uns.ftn.clinic.payload;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.lang.Nullable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +15,12 @@ import rs.ac.uns.ftn.clinic.model.User;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AppointmentRequest {
+public class AppointmentRequest implements Serializable {
 
     @NotNull
     private User doctor;
 
-    @NotBlank
+    @Nullable
     private User patient;
 
     @NotNull

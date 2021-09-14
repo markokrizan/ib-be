@@ -1,11 +1,14 @@
 package rs.ac.uns.ftn.clinic.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -20,7 +23,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseModel {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class BaseModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

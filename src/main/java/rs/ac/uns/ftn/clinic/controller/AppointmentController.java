@@ -35,7 +35,7 @@ public class AppointmentController {
         return appointmentService.getOne(appoinmentId);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') || hasPermission(#appointmentRequest, 'Appointment', 'write')")
     @PostMapping("/appoinments")
     public Appointment save(@Valid @RequestBody AppointmentRequest appointmentRequest) {
         Appointment appointment = modelMapper.map(appointmentRequest, Appointment.class);

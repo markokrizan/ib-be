@@ -48,24 +48,23 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     }
 
     @Override
-    public boolean hasPermission(Authentication auth, Serializable targetId, String targetType, Object permission) {
-        if ((auth == null) || (targetId == null)) {
+    public boolean hasPermission(Authentication auth, Serializable payload, String targetType, Object permission) {
+        if ((auth == null) || (payload == null)) {
             return false;
         }
 
-        Long modelId = (Long) targetId;
         Long userId = ((UserPrincipal) auth.getPrincipal()).getId();
 
-        return canAccessModel(targetType, modelId, userId, permission);
+        return canAccessModel(targetType, payload, userId, permission);
     }
 
-    public boolean canAccessModel(String modelName, Long modelId, Long userId, Object permission) {
+    public boolean canAccessModel(String modelName, Serializable payload, Long userId, Object permission) {
         ModelAccesChecker modelAccessChecker = ModelAccessCheckerFactory.getChecker(modelName);
 
         if (modelAccessChecker == null) {
             return false;
         }
 
-        return modelAccessChecker.canAccess(modelId, userId, permission);
+        return modelAccessChecker.canAccess(payload, userId, permission);
     }
 }
