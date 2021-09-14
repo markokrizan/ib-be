@@ -24,7 +24,7 @@ public class AppointmentController {
     private ModelMapper modelMapper;
 
     @GetMapping("/appoinments")
-    @PreAuthorize("hasAuthority('READ_ALL_APPOINTMENTS')")
+    @PreAuthorize("isAuthenticated()")
     public Page<Appointment> getAll(Pageable pageable) {
         return appointmentService.getAll(pageable);
     }
