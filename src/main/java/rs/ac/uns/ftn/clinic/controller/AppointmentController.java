@@ -43,6 +43,13 @@ public class AppointmentController {
         return appointmentService.save(appointment);
     }
 
+    @PreAuthorize("hasRole('ADMIN') || hasPermission(#appointmentBookRequest, 'Appointment', 'appointment-book')")
+    @PostMapping("/appoinments/book")
+    public int book(@Valid @RequestBody AppointmentBookRequest appointmentBookRequest) {
+        return appointmentService.book(appointmentBookRequest.getPatient().getId(),
+                appointmentBookRequest.getAppointment().getId());
+    }
+
     @DeleteMapping("/appoinments/{appoinmentId}")
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable("appoinmentId") Long appoinmentId) {

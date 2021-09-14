@@ -9,6 +9,7 @@ import rs.ac.uns.ftn.clinic.repository.AppointmentRepository;
 import rs.ac.uns.ftn.clinic.repository.UserRepository;
 import rs.ac.uns.ftn.clinic.model.Appointment;
 import rs.ac.uns.ftn.clinic.model.User;
+import rs.ac.uns.ftn.clinic.payload.AppointmentBookRequest;
 import rs.ac.uns.ftn.clinic.payload.AppointmentRequest;
 
 @Component
@@ -27,6 +28,8 @@ public class AppointmentAccessChecker extends ModelAccesChecker {
                 return canRead(payload, userId);
             case "write":
                 return canWrite(payload, userId);
+            case "appointment-book":
+                return canBook(payload, userId);
             default:
                 return false;
         }
@@ -44,6 +47,12 @@ public class AppointmentAccessChecker extends ModelAccesChecker {
         AppointmentRequest requestData = (AppointmentRequest) payload;
 
         return requestData.getDoctor().getId() == userId;
+    }
+
+    private boolean canBook(Serializable payload, Long userId) {
+        AppointmentBookRequest requestData = (AppointmentBookRequest) payload;
+
+        return requestData.getPatient().getId() == userId;
     }
 
     @Override
