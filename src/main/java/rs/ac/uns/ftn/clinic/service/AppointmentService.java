@@ -22,6 +22,10 @@ public class AppointmentService {
         return appointmentRepository.getOne(id);
     }
 
+    public Appointment getLatestDoctorPatientAppointment(Long doctorId, Long patientId) {
+        return appointmentRepository.findByDoctorIdAndPatientIdOrderByIdDesc(doctorId, patientId);
+    }
+
     public Appointment save(Appointment appointment) {
         return appointmentRepository.save(appointment);
     }

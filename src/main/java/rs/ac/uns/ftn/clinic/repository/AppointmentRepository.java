@@ -16,4 +16,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Modifying
     @Query("UPDATE Appointment SET patient_id = :patient where id = :id")
     int bookAppointemnt(@Param(value = "patient") Long patientId, @Param(value = "id") long appointmentId);
+
+    Appointment findByDoctorIdAndPatientIdOrderByIdDesc(Long doctorId, Long patientId);
 }

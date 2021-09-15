@@ -1,17 +1,18 @@
 package rs.ac.uns.ftn.clinic.security.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import rs.ac.uns.ftn.clinic.service.AppointmentService;
 import rs.ac.uns.ftn.clinic.model.Appointment;
-import rs.ac.uns.ftn.clinic.payload.AppointmentBookRequest;
-import rs.ac.uns.ftn.clinic.payload.AppointmentRequest;
+import rs.ac.uns.ftn.clinic.payload.MedicalRecordRequest;
 
 @Component
-public class AppointmentAccessChecker extends ModelAccesChecker {
+public class MedicalRecordAccessChecker extends ModelAccesChecker {
 
     @Autowired
     AppointmentService appointmentService;
@@ -23,34 +24,32 @@ public class AppointmentAccessChecker extends ModelAccesChecker {
                 return canRead(payload, userId);
             case "write":
                 return canWrite(payload, userId);
-            case "appointment-book":
-                return canBook(payload, userId);
             default:
                 return false;
         }
     }
 
     private boolean canRead(Serializable payload, Long userId) {
-        Long appointmentId = (Long) payload;
-        Appointment appointment = appointmentService.getOne(appointmentId);
+        Long patientId = (Long) payload;
 
-        return appointment.getDoctor().getId() == userId;
+        return appointmentService.getLatestDoctorPatientAppointment(userId, patientId) != null;
     }
 
     private boolean canWrite(Serializable payload, Long userId) {
-        AppointmentRequest requestData = (AppointmentRequest) payload;
+        MedicalRecordRequest requestData = (MedicalRecordRequest) payload;
 
-        return requestData.getDoctor().getId() == userId;
-    }
+        Appointment latestAppointment = appointmentService.getLatestDoctorPatientAppointment(userId,
+                requestData.getPatient().getId());
 
-    private boolean canBook(Serializable payload, Long userId) {
-        AppointmentBookRequest requestData = (AppointmentBookRequest) payload;
+        if (latestAppointment == null) {
+            return false;
+        }
 
-        return requestData.getPatient().getId() == userId;
+        return DateUtils.isSameDay(new Date(), latestAppointment.getDate());
     }
 
     @Override
     public AccessCheckerType getType() {
-        return AccessCheckerType.APPOINTMENT;
+        return AccessCheckerType.MEDICALRECORD;
     }
 }
