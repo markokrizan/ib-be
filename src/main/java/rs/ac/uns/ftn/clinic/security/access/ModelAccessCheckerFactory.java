@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.clinic.security.model;
+package rs.ac.uns.ftn.clinic.security.access;
 
 import java.util.HashMap;
 import java.util.List;

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.ac.uns.ftn.clinic.security.AttributeEncryptor;
+import rs.ac.uns.ftn.clinic.security.crypto.AttributeEncryptor;
 
 @Entity
 @Table(name = "medical_records")

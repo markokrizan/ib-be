@@ -6,8 +6,8 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import rs.ac.uns.ftn.clinic.security.model.ModelAccesChecker;
-import rs.ac.uns.ftn.clinic.security.model.ModelAccessCheckerFactory;
+import rs.ac.uns.ftn.clinic.security.access.ModelAccesChecker;
+import rs.ac.uns.ftn.clinic.security.access.ModelAccessCheckerFactory;
 
 /**
  * @see https://www.baeldung.com/spring-security-create-new-custom-security-expression

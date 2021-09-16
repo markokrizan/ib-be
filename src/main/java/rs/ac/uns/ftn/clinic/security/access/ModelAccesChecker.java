@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.clinic.security.model;
+package rs.ac.uns.ftn.clinic.security.access;
 
 import java.io.Serializable;
 import java.util.stream.Collectors;
