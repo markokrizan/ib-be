@@ -18,6 +18,10 @@ public class AppointmentService {
         return appointmentRepository.findAll(pageable);
     }
 
+    public Page<Appointment> getDoctorAppointments(Long doctorId, Pageable pageable) {
+        return appointmentRepository.findByDoctor_Id(doctorId, pageable);
+    }
+
     public Appointment getOne(Long id) {
         return appointmentRepository.getOne(id);
     }

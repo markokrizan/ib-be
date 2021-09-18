@@ -29,6 +29,12 @@ public class AppointmentController {
         return appointmentService.getAll(pageable);
     }
 
+    @GetMapping("/doctors/{doctorId}/appointments")
+    @PreAuthorize("isAuthenticated()")
+    public Page<Appointment> getDoctorAppointments(@PathVariable("doctorId") Long doctorId, Pageable pageable) {
+        return appointmentService.getDoctorAppointments(doctorId, pageable);
+    }
+
     @PreAuthorize("hasRole('ADMIN') || hasPermission(#appoinmentId, 'Appointment', 'read')")
     @GetMapping("/appoinments/{appoinmentId}")
     public Appointment getOne(@PathVariable("appoinmentId") Long appoinmentId) {
