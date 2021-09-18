@@ -68,6 +68,10 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
+    public Page<User> getByRoleName(String roleName, Pageable pageable) {
+        return userRepository.findByRoles_Name(roleName, pageable);
+    }
+
     public UserIdentityAvailability checkUsernameAvailability(String username) {
         Boolean isAvailable = !userRepository.existsByUsername(username);
         return new UserIdentityAvailability(isAvailable);

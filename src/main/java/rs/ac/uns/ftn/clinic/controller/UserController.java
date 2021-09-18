@@ -47,6 +47,12 @@ public class UserController {
         return userService.getAllUsers(pageable);
     }
 
+    @GetMapping("/users/doctors")
+    @PreAuthorize("isAuthenticated()")
+    public Page<User> getDoctors(Pageable pageable) {
+        return userService.getByRoleName("ROLE_DOCTOR", pageable);
+    }
+
     @PutMapping("/users")
     @PreAuthorize("hasAuthority('UPDATE_USER')")
     public User updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
