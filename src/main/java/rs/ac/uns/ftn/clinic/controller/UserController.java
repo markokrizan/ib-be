@@ -53,6 +53,12 @@ public class UserController {
         return userService.getByRoleName("ROLE_DOCTOR", pageable);
     }
 
+    @GetMapping("/users/doctors/{doctorId}")
+    @PreAuthorize("isAuthenticated()")
+    public User getDoctors(@PathVariable(value = "doctorId") Long doctorId) {
+        return userService.getUserById(doctorId);
+    }
+
     @PutMapping("/users")
     @PreAuthorize("hasAuthority('UPDATE_USER')")
     public User updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest) {
