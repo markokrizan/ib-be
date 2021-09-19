@@ -50,8 +50,8 @@ public class AppointmentController {
     }
 
     @PreAuthorize("hasRole('ADMIN') || hasPermission(#appointmentBookRequest, 'Appointment', 'appointment-book')")
-    @PostMapping("/appoinments/book")
-    public int book(@Valid @RequestBody AppointmentBookRequest appointmentBookRequest) {
+    @PutMapping("/appoinments/book")
+    public Appointment book(@Valid @RequestBody AppointmentBookRequest appointmentBookRequest) {
         return appointmentService.book(appointmentBookRequest.getPatient().getId(),
                 appointmentBookRequest.getAppointment().getId());
     }

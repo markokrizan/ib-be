@@ -34,8 +34,10 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    public int book(Long patientId, Long appointmentId) {
-        return appointmentRepository.bookAppointemnt(patientId, appointmentId);
+    public Appointment book(Long patientId, Long appointmentId) {
+        appointmentRepository.bookAppointemnt(patientId, appointmentId);
+
+        return getOne(appointmentId);
     }
 
     public void delete(Long id) {
