@@ -16,6 +16,8 @@ import rs.ac.uns.ftn.clinic.model.User;
 @Setter
 @NoArgsConstructor
 public class AppointmentRequest implements Serializable {
+    @Nullable
+    private Long id;
 
     @NotNull
     private User doctor;
