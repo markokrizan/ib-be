@@ -53,10 +53,10 @@ public class UserController {
         return userService.getByRoleName("ROLE_DOCTOR", pageable);
     }
 
-    @GetMapping("/users/doctors/{doctorId}")
+    @GetMapping("/users/{userId}")
     @PreAuthorize("isAuthenticated()")
-    public User getDoctors(@PathVariable(value = "doctorId") Long doctorId) {
-        return userService.getUserById(doctorId);
+    public User getDoctors(@PathVariable(value = "userId") Long userId) {
+        return userService.getUserById(userId);
     }
 
     @PutMapping("/users")
@@ -72,10 +72,5 @@ public class UserController {
     @GetMapping("/users/checkUsernameAvailability")
     public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {
         return userService.checkUsernameAvailability(username);
-    }
-
-    @GetMapping("/users/{username}")
-    public User getUserProfile(@PathVariable(value = "username") String username) {
-        return userService.getUserByUsername(username);
     }
 }
