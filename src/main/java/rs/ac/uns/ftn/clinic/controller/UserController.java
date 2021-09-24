@@ -54,8 +54,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    @PreAuthorize("isAuthenticated()")
-    public User getDoctors(@PathVariable(value = "userId") Long userId) {
+    @PreAuthorize("hasRole('ADMIN') || hasPermission(#userId, 'User', 'read')")
+    public User getUser(@PathVariable(value = "userId") Long userId) {
         return userService.getUserById(userId);
     }
 
