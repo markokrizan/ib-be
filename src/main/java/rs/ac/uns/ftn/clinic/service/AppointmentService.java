@@ -14,6 +14,9 @@ public class AppointmentService {
     @Autowired
     AppointmentRepository appointmentRepository;
 
+    @Autowired
+    UserService userService;
+
     public Page<Appointment> getAll(Pageable pageable) {
         return appointmentRepository.findAll(pageable);
     }
@@ -31,7 +34,16 @@ public class AppointmentService {
     }
 
     public Appointment save(Appointment appointment) {
-        return appointmentRepository.save(appointment);
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        // TODO: Hacky loading of related entites - find better solution
+        savedAppointment.setDoctor(userService.getUserById(savedAppointment.getDoctor().getId()));
+
+        if (savedAppointment.getPatient() != null && savedAppointment.getPatient().getId() != null) {
+            savedAppointment.setPatient(userService.getUserById(savedAppointment.getPatient().getId()));
+        }
+
+        return savedAppointment;
     }
 
     public Appointment book(Long patientId, Long appointmentId) {

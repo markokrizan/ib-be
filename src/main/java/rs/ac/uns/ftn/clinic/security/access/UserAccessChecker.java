@@ -5,7 +5,9 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import rs.ac.uns.ftn.clinic.model.Appointment;
 import rs.ac.uns.ftn.clinic.model.User;
+import rs.ac.uns.ftn.clinic.service.AppointmentService;
 import rs.ac.uns.ftn.clinic.service.UserService;
 
 @Component
@@ -13,6 +15,9 @@ public class UserAccessChecker extends ModelAccesChecker {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    AppointmentService appointmentService;
 
     @Override
     public boolean canAccess(Serializable payload, Long userId, Object permission) {
@@ -31,6 +36,12 @@ public class UserAccessChecker extends ModelAccesChecker {
         Boolean isDoctor = hasRole(requestedUser, "ROLE_DOCTOR");
 
         if (isDoctor) {
+            return true;
+        }
+
+        Appointment appointment = appointmentService.getLatestDoctorPatientAppointment(userId, requestedUserId);
+
+        if (appointment != null) {
             return true;
         }
 

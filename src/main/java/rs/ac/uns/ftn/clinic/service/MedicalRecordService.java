@@ -12,6 +12,9 @@ public class MedicalRecordService {
     @Autowired
     MedicalRecordRepository medicalRecordRepository;
 
+    @Autowired
+    UserService userService;
+
     public MedicalRecord getOne(Long id) {
         return medicalRecordRepository.getOne(id);
     }
@@ -21,6 +24,13 @@ public class MedicalRecordService {
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
-        return medicalRecordRepository.save(medicalRecord);
+        MedicalRecord savedMedicalRecord = medicalRecordRepository.save(medicalRecord);
+
+        // TODO: Hacky loading of related entites - find better solution
+        if (savedMedicalRecord.getPatient() != null && savedMedicalRecord.getPatient().getId() != null) {
+            savedMedicalRecord.setPatient(userService.getUserById(savedMedicalRecord.getPatient().getId()));
+        }
+
+        return savedMedicalRecord;
     }
 }
