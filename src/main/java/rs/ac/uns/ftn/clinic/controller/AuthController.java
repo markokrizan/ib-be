@@ -1,6 +1,9 @@
 package rs.ac.uns.ftn.clinic.controller;
 
+import java.util.List;
+
 import rs.ac.uns.ftn.clinic.model.User;
+import rs.ac.uns.ftn.clinic.model.Role;
 import rs.ac.uns.ftn.clinic.payload.ApiResponse;
 import rs.ac.uns.ftn.clinic.payload.JwtAuthenticationResponse;
 import rs.ac.uns.ftn.clinic.payload.LoginRequest;
@@ -10,6 +13,8 @@ import rs.ac.uns.ftn.clinic.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,12 @@ public class AuthController {
 
         @Autowired
         UserService userService;
+
+        @GetMapping("/roles")
+        @PreAuthorize("hasRole('ADMIN')")
+        public List<Role> getAllRoles() {
+                return userService.getAllRoles();
+        }
 
         @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

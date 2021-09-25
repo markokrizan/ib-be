@@ -5,12 +5,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import rs.ac.uns.ftn.clinic.exception.AppException;
 import rs.ac.uns.ftn.clinic.exception.ResourceNotFoundException;
+import rs.ac.uns.ftn.clinic.model.Role;
 import rs.ac.uns.ftn.clinic.model.User;
 import rs.ac.uns.ftn.clinic.payload.UserIdentityAvailability;
+import rs.ac.uns.ftn.clinic.repository.RoleRepository;
 import rs.ac.uns.ftn.clinic.repository.UserRepository;
 import rs.ac.uns.ftn.clinic.security.JwtTokenProvider;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +38,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     public String authenticateUser(String username, String password) {
         Authentication authentication = authenticationManager
@@ -66,6 +72,10 @@ public class UserService {
 
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
     }
 
     public Page<User> getByRoleName(String roleName, Pageable pageable) {
